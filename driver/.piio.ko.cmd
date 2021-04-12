@@ -1,1 +1,0 @@
-cmd_/home/hatter/pi/source/driver/piio.ko := /home/hatter/pi/tools/arm-bcm2708/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/hatter/pi/source/driver/piio.ko /home/hatter/pi/source/driver/piio.o /home/hatter/pi/source/driver/piio.mod.o;  true
