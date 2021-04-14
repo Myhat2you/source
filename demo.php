@@ -1,31 +1,25 @@
 <?php
-error_reporting(E_ALL);
+    error_reporting(E_ALL);
 
+    $uapp = "ls -al";
+    $cmd = $uapp;
 
+    echo "User Test App". $cmd;
 
-$uapp = "./piiotest writepin ";
-
-$cmd = $uapp . $_POST["pinno"] . " " . $_POST["pinval"]. '';
-
-echo "User Test App". $cmd;
-
-$output = shell_exec($cmd);
-echo "<pre>$output</pre>";
-
+    $output = shell_exec($cmd);
+    echo "<pre>$output</pre>";
 
 ?>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
-    GPIO Number:
-    <input type="text" name="pinno" /> <br>
-    Value - 0 or 1 :
-    <input type="text" name="pinval" /> <br>
-    <input type="submit" name="btnSendForm" value="Execute" />
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+    display_machines();
 </form>
 
-<?php
-
-
-	
-?>
-
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    Add Machine:
+    <input type="submit" class="button" name="Add Machine" value="addm" />
+    Machine Number:
+    <input type="number" name="Machine Name" id="mnum" min="1" max="5"/> <br>
+    <input type="submit" name="btnSendForm" value="Delete Machine" />
+    <input type="submit" name="btnSendForm" value="Update Machine" />
+</form>
