@@ -82,7 +82,7 @@ int main() {
 		
 					strcpy(machine[x].name, check_char(sizeof(machine[x].name), "Enter name: "));
 					strcpy(machine[x].location, check_char(32, "Enter location: "));
-					machine[x].pin = check_int(1, max_machines, "Enter Pin: ");
+					machine[x].pin = check_int(1, 27, "Enter Pin: ");
 					machine[x].status = check_int(0, 1, "Enter Status: ");
 		
 					printf("\n");
