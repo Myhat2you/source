@@ -1,0 +1,25 @@
+{
+	"vendor": [
+		{
+			"index": 1,
+			"name": "machine_2",
+			"location": "office",
+			"pin": 2,
+			"status": 1
+		},
+		{
+			"index": 2,
+			"name": "machine_3",
+			"location": "hallway",
+			"pin": 3,
+			"status": 0
+		},
+		{
+			"index": 3,
+			"name": "1",
+			"location": "a",
+			"pin": 1,
+			"status": 1
+		}
+	]
+}
