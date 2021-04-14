@@ -1,8 +1,8 @@
-cmd_/home/hatter/pi/source/driver/piio.o := /home/hatter/pi/tools/arm-bcm2708/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc -Wp,-MMD,/home/hatter/pi/source/driver/.piio.o.d -nostdinc -isystem /home/hatter/pi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin/../lib/gcc/arm-linux-gnueabihf/4.9.3/include -I./arch/arm/include -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./arch/arm/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mfpu=vfp -marm -Wa,-mno-warn-deprecated -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -Os --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -Wno-array-bounds -Wno-maybe-uninitialized -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=date-time -fplugin=./scripts/gcc-plugins/structleak_plugin.so -fplugin-arg-structleak_plugin-byref-all -DSTRUCTLEAK_PLUGIN  -DMODULE  -DKBUILD_BASENAME='"piio"' -DKBUILD_MODNAME='"piio"' -c -o /home/hatter/pi/source/driver/piio.o /home/hatter/pi/source/driver/piio.c
+cmd_/home/hatter/pi/source/driver/piio/piio.o := /home/hatter/pi/tools/arm-bcm2708/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc -Wp,-MMD,/home/hatter/pi/source/driver/piio/.piio.o.d -nostdinc -isystem /home/hatter/pi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin/../lib/gcc/arm-linux-gnueabihf/4.9.3/include -I./arch/arm/include -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./arch/arm/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mfpu=vfp -marm -Wa,-mno-warn-deprecated -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -Os --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -pg -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -Wno-array-bounds -Wno-maybe-uninitialized -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=date-time -fplugin=./scripts/gcc-plugins/structleak_plugin.so -fplugin-arg-structleak_plugin-byref-all -DSTRUCTLEAK_PLUGIN  -DMODULE  -DKBUILD_BASENAME='"piio"' -DKBUILD_MODNAME='"piio"' -c -o /home/hatter/pi/source/driver/piio/piio.o /home/hatter/pi/source/driver/piio/piio.c
 
-source_/home/hatter/pi/source/driver/piio.o := /home/hatter/pi/source/driver/piio.c
+source_/home/hatter/pi/source/driver/piio/piio.o := /home/hatter/pi/source/driver/piio/piio.c
 
-deps_/home/hatter/pi/source/driver/piio.o := \
+deps_/home/hatter/pi/source/driver/piio/piio.o := \
   include/linux/kconfig.h \
     $(wildcard include/config/cc/version/text.h) \
     $(wildcard include/config/cpu/big/endian.h) \
@@ -17,7 +17,7 @@ deps_/home/hatter/pi/source/driver/piio.o := \
     $(wildcard include/config/arm64.h) \
     $(wildcard include/config/retpoline.h) \
     $(wildcard include/config/arch/use/builtin/bswap.h) \
-  /home/hatter/pi/source/driver/piio.h \
+  /home/hatter/pi/source/driver/piio/piio.h \
   include/uapi/linux/ioctl.h \
   arch/arm/include/generated/uapi/asm/ioctl.h \
   include/asm-generic/ioctl.h \
@@ -899,6 +899,6 @@ deps_/home/hatter/pi/source/driver/piio.o := \
     $(wildcard include/config/gpio/sysfs.h) \
   include/linux/cdev.h \
 
-/home/hatter/pi/source/driver/piio.o: $(deps_/home/hatter/pi/source/driver/piio.o)
+/home/hatter/pi/source/driver/piio/piio.o: $(deps_/home/hatter/pi/source/driver/piio/piio.o)
 
-$(deps_/home/hatter/pi/source/driver/piio.o):
+$(deps_/home/hatter/pi/source/driver/piio/piio.o):

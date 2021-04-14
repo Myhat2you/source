@@ -1,1 +1,1 @@
-cmd_/home/hatter/pi/source/driver/Module.symvers := sed 's/ko$$/o/' /home/hatter/pi/source/driver/modules.order | scripts/mod/modpost     -o /home/hatter/pi/source/driver/Module.symvers -e -i Module.symvers   -T -
+cmd_/home/hatter/pi/source/driver/piio/Module.symvers := sed 's/ko$$/o/' /home/hatter/pi/source/driver/piio/modules.order | scripts/mod/modpost     -o /home/hatter/pi/source/driver/piio/Module.symvers -e -i Module.symvers   -T -

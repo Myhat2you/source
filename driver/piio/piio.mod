@@ -1,2 +1,2 @@
-/home/hatter/pi/source/driver/piio.o
+/home/hatter/pi/source/driver/piio/piio.o
 
