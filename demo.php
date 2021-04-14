@@ -1,15 +1,24 @@
 <?php
     $max_machines = 5;
-    $uapp = "ls -al";
-    $cmd = $uapp . $_POST["pinno"] . " " . $_POST["pinval"]. '';
 
-    echo "User Test App" . $cmd;
+    $name = $loc = $pin = $status = "";
 
-    $output = shell_exec($cmd);
-    echo "<pre>$output</pre>";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = test_input($_POST["name"]);
+        $loc = test_input($_POST["location"]);
+        $pin = test_input($_POST["pin"]);
+        $stat = test_input($_POST["status"]);
+      }
+      
+      function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
 ?>
 
-<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?> "
     <input type="submit" class="button" name="btnAddMachine" value="Add Machine" />
     Machine Number:
     <input type="number" name="numMachine"  id="mNum" min="1" max="5"/> <br>
@@ -17,11 +26,14 @@
     <input type="submit" name="btnUpdate" value="Update Machine" />
 </form>
 
-<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-    <input type="text"   name="txtName"     id="mName"/> <br>
-    <input type="text"   name="txtLocation" id="mLoc" /> <br>
-    <input type="number" name="numPin"      id="mPin"   min="0" max="27"/> <br>
-    <input type="status" name="numStatus"   id="mStat"  min="0" max="1"/> <br>
+<?php
+?>
 
-    <input type="submit" name="btnSendForm" value="Update Machine" />
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?> "
+    Name:       <input type="text"   name="txtName"     id="mName"/> <br>
+    Location:   <input type="text"   name="txtLocation" id="mLoc" /> <br>
+    Pin:        <input type="number" name="numPin"      id="mPin"   min="0" max="27"/> <br>
+    Status:     <input type="status" name="numStatus"   id="mStat"  min="0" max="1"/> <br>
+
+    <input type="submit" name="btnSendUpdate" value="Add Machine" />
 </form>
