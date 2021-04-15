@@ -4,10 +4,11 @@
     $name = $loc = $pin = $status = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = test_input($_POST["txtName"]);
-        $loc = test_input($_POST["txtLocation"]);
-        $pin = test_input($_POST["numPin"]);
-        $stat = test_input($_POST["numStatus"]);
+        $name = $_POST["txtName"];
+        //$loc = test_input($_POST["txtLocation"]);
+        //$pin = test_input($_POST["numPin"]);
+        //$stat = test_input($_POST["numStatus"]);
+        print "Hello, $name\n";
       }
       
       function test_input($data) {
@@ -17,7 +18,7 @@
         return $data;
       }
 ?>
-<form method="post" action="/cgi-bin/output">
+<form method="post" action="/usr/lib/cgi-bin/output">
     Name:       <input type="text"   name="txtName"     id="mName"/> <br>
     Location:   <input type="text"   name="txtLocation" id="mLoc" /> <br>
     Pin:        <input type="number" name="numPin"      id="mPin"   min="0" max="27"/> <br>
