@@ -242,13 +242,17 @@ int main(int argc, char** argv) {
 	Vending machine[max_machines] = {"", "", 0, 0, 0};;
 	get_machines(machine);
 	
-	web_print_header();
+	if (argc > 1) {
+		/*for (int i=1; i < argc; i++){
+			printf("arg: %s", argv[i]);
+		}*/
+		web_print_header();
 
-	printf("<h1>Hello World!</h1>");
-	return 1;
+		printf("<h1>Hello World!</h1>");
 
-	if (argc == 1) {
+	} else {
 		int command;
+
 		do {
 			//system("clear");
 			print_home();
@@ -262,16 +266,7 @@ int main(int argc, char** argv) {
 			while ((getchar()) != '\n');
 			system("clear");
 		} while (command != 0);
-	} else {
-		/*for (int i=1; i < argc; i++){
-			printf("arg: %s", argv[i]);
-		}*/
-		web_print_header();
-
-		printf("<h1>Hello World!</h1>");
-		return 1;
 	}
-
 	return 0;
 }
 
