@@ -8,7 +8,8 @@
         //$loc = test_input($_POST["txtLocation"]);
         //$loc = test_input($_POST["txtLocation"]);
         //$pin = test_input($_POST["numPin"]);
-        //$stat = test_input($_POST["numStatus"]);
+        //stat = test_input($_POST["numStatus"]);
+        print "Hello, $name\n";
       }
       
       function test_input($data) {
