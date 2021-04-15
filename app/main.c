@@ -252,6 +252,10 @@ int main(int argc, char** argv, char** env) {
 
 		web_print_header();
 		printf("<h1>Errors World!</h1>");
+		while(*env){
+			printf("test");
+			env+=1;
+		}
 		return 1;
 
 		do {
