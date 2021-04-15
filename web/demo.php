@@ -17,7 +17,6 @@
         return $data;
       }
 ?>
-
 <form method="post" action="/cgi-bin/output test">
     Name:       <input type="text"   name="txtName"     id="mName"/> <br>
     Location:   <input type="text"   name="txtLocation" id="mLoc" /> <br>
