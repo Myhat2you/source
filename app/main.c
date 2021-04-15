@@ -244,7 +244,7 @@ void display_menu(Vending* machine, int command) {
 
 int main(int argc, char** argv) {
 	/* initialization */
-	Vending machine[max_machines] = {"", "", 0, 0, 0};
+	Vending machine[max_machines] = {{"", "", 0, 0, 0}};
 	get_machines(machine);
 	
 	web_print_header();
