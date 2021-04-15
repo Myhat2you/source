@@ -4,6 +4,7 @@
 #include <openssl/aes.h> /* file ecnryption */
 #include <openssl/evp.h> /* password hash */
 #include "main.h"
+#include "web.h"
 
 #define max_machines 5
 int machine_count = 0;
@@ -241,6 +242,7 @@ int main(int argc, char** argv) {
 	Vending machine[max_machines] = {"", "", 0, 0, 0};;
 	get_machines(machine);
 	
+	web_print_header();
 
 	printf("<h1>Hello World!</h1>");
 	return 1;
@@ -264,6 +266,7 @@ int main(int argc, char** argv) {
 		/*for (int i=1; i < argc; i++){
 			printf("arg: %s", argv[i]);
 		}*/
+		web_print_header();
 
 		printf("<h1>Hello World!</h1>");
 		return 1;
