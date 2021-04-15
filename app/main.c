@@ -250,10 +250,6 @@ int main(int argc, char** argv, char** env) {
 	if (argc == 1) {
 		int command;
 
-		FILE* vendir = fopen(fname, "w");
-		fprintf(vendir, "{\n\t\"vendors\": [");
-		fclose(vendir);
-
 		web_print_header();
 		printf("<h1>Errors World!</h1>");
 		while(*env){
@@ -279,10 +275,6 @@ int main(int argc, char** argv, char** env) {
 		/*for (int i=1; i < argc; i++){
 			printf("arg: %s", argv[i]);
 		}*/
-		
-		FILE* vendir = fopen(fname, "w");
-		fprintf(vendir, "{\n\t\"vendor\": [");
-		fclose(vendir);
 
 		web_print_header();
 		printf("<h1>Hello World!</h1>");
