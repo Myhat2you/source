@@ -242,20 +242,19 @@ void display_menu(Vending* machine, int command) {
 	}
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv, char** env) {
 	/* initialization */
 	Vending machine[max_machines] = {{"", "", 0, 0, 0}};
 	get_machines(machine);
 	
 	if (argc == 1) {
-
 		int command;
+
+		web_print_header();
+		printf("<h1>Error World!</h1>");
+		return 1;
+
 		do {
-			web_print_header();
-
-			printf("<h1>Error World!</h1>");
-			return 1;
-
 			//system("clear");
 			print_home();
 			command = check_int(0, 5, "Enter command (0-5): ");
@@ -272,9 +271,15 @@ int main(int argc, char** argv) {
 		/*for (int i=1; i < argc; i++){
 			printf("arg: %s", argv[i]);
 		}*/
-		web_print_header();
 
+		web_print_header();
 		printf("<h1>Hello World!</h1>");
+		
+		while(*env){
+			printf("test");
+			env+=1;
+		}
+
 		return 1;
 	}
 
