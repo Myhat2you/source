@@ -255,6 +255,7 @@ int main(int argc, char** argv) {
 
 			printf("<h1>Error World!</h1>");
 			return 1;
+
 			//system("clear");
 			print_home();
 			command = check_int(0, 5, "Enter command (0-5): ");
