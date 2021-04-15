@@ -3,12 +3,15 @@
     $name = $loc = $pin = $status = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST["txtName"];
-        //$loc = test_input($_POST["txtLocation"]);
-        //$pin = test_input($_POST["numPin"]);
-        //$stat = test_input($_POST["numStatus"]);
-        //print "Hello there, $name\n";
+        $name = test_input($_POST["txtName"]);
+        $loc = test_input($_POST["txtLocation"]);
+        $pin = test_input($_POST["numPin"]);
+        $stat = test_input($_POST["numStatus"]);
 
+        print "Name $name\n";
+        print "Location $loc\n";
+        print "Pin $pin\n";
+        print "Status $stat\n";
     }
       
       function test_input($data) {
