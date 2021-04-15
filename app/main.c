@@ -251,7 +251,7 @@ int main(int argc, char** argv, char** env) {
 		int command;
 
 		web_print_header();
-		printf("<h1>Error World!</h1>");
+		printf("<h1>Errors World!</h1>");
 		return 1;
 
 		do {
