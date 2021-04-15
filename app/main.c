@@ -24,7 +24,7 @@ const char* json_out =
     unsigned char ecount[AES_BLOCK_SIZE];
 };*/
 
-void print_home() {
+void menu_home() {
 	system("clear");
  	printf("=========================================================\n");
  	printf("|            VENDING MACHINE CONTROL CONSOLE            |\n");
@@ -51,7 +51,6 @@ void get_machines(Vending* m) {
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
-		exit(-1);
 	} else {
 		char buffer[200];
 		fseek(vendir, 14, SEEK_SET); 
@@ -71,11 +70,10 @@ void get_machines(Vending* m) {
 }
 
 void set_machines(Vending* m) {
-	FILE* vendir = fopen(fname, "w");
+	FILE* vendir = fopen(fname, "rwb");
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
-		exit(-1);
 	} else {
 		/* write json start */
 		fprintf(vendir, "{\n\t\"vendor\": [");
@@ -107,7 +105,7 @@ char *check_char(int size, char prompt[]) {
 			printf("> ERROR: NULL input\n");
 		}
 		else if (buffer[strlen(buffer)-1] != '\n') {
-			// get EOF/NL to consume input 
+			// get EOF / NL to consume input 
 			for (int c; (c = getchar()) != EOF && c != '\n';);
 			printf("> ERROR: Input too long\n");
 		}
@@ -151,7 +149,7 @@ int check_int(int min, int max, char prompt[]) {
 	return input;
 }
 
-void display_menu(Vending* machine, int command) {
+void display_menu(Vending *machine, int command) {
 	switch (command) {
 		case 1: // show all machines
 			if (machine_count == 0) {
@@ -248,20 +246,29 @@ int main(int argc, char** argv) {
 	} else {
 		int command;
 
+		//system("clear");
+
+		/*char *a = get_password();
+		printf("password-out: %lu\n", strlen(a));
+		printf("password-out: %s\n", a);
+		exit(1);
+		*/
+
 		do {
-			//system("clear");
-			print_home();
+			menu_home();
+			// get password through input parameters
 			command = check_int(0, 5, "Enter command (0-5): ");
-		
 			system("clear");
+		
 			display_menu(machine, command);
-			//display_menu(machine, command, message);
 
 			printf("Please press ENTER to continue ");
 			while ((getchar()) != '\n');
 			system("clear");
+
 		} while (command != 0);
 	}
+
 	return 0;
 }
 
