@@ -1,9 +1,9 @@
 <?php
     $max_machines = 5;
-    $name = $loc = $pin = $status = "";
+    $aname = $loc = $pin = $status = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST["txtName"];
+        $aname = $_POST["txtName"];
         #$name = test_input($_POST["txtName"]);
         #$loc = test_input($_POST["txtLocation"]);
         #$pin = test_input($_POST["numPin"]);
@@ -71,7 +71,7 @@ input[type=submit] {
 
 <h3>Add Machine</h3>
 <div class="container">
-  <form method="post" action="/cgi-bin/output.o">
+  <form method="post" action="/cgi-bin/output.o $aname">
     <label for="mName">Name</label>
     <input type="text" name="mName" id="txtName">
 
