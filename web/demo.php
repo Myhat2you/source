@@ -29,7 +29,7 @@
 <?php
 ?>
 
-<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?> "
+<form method="post" action="/cgi-bin/output test">
     Name:       <input type="text"   name="txtName"     id="mName"/> <br>
     Location:   <input type="text"   name="txtLocation" id="mLoc" /> <br>
     Pin:        <input type="number" name="numPin"      id="mPin"   min="0" max="27"/> <br>
