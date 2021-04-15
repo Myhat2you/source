@@ -247,11 +247,6 @@ int main(int argc, char** argv) {
 	Vending machine[max_machines] = {{"", "", 0, 0, 0}};
 	get_machines(machine);
 	
-	web_print_header();
-
-	printf("<h1>Hello World!</h1>");
-	return 1;
-
 	if (argc == 1) {
 		int command;
 		do {
