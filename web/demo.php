@@ -8,6 +8,7 @@
         //$pin = test_input($_POST["numPin"]);
         //$stat = test_input($_POST["numStatus"]);
         //print "Hello there, $name\n";
+
     }
       
       function test_input($data) {
