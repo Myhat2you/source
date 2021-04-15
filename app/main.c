@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <openssl/aes.h> /* file ecnryption */
-#include <openssl/evp.h> /* password hash */
+//#include <openssl/aes.h> /* file ecnryption */
+//#include <openssl/evp.h> /* password hash */
 #include "main.h"
+#include "web.h"
 
 #define max_machines 5
 int machine_count = 0;
@@ -24,7 +25,7 @@ const char* json_out =
     unsigned char ecount[AES_BLOCK_SIZE];
 };*/
 
-void menu_home() {
+void print_home() {
 	system("clear");
  	printf("=========================================================\n");
  	printf("|            VENDING MACHINE CONTROL CONSOLE            |\n");
@@ -51,6 +52,7 @@ void get_machines(Vending* m) {
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
+		exit(-1);
 	} else {
 		char buffer[200];
 		fseek(vendir, 14, SEEK_SET); 
@@ -70,16 +72,18 @@ void get_machines(Vending* m) {
 }
 
 void set_machines(Vending* m) {
-	FILE* vendir = fopen(fname, "rwb");
+	FILE* vendir = fopen(fname, "w");
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
+		exit(-1);
 	} else {
 		/* write json start */
 		fprintf(vendir, "{\n\t\"vendor\": [");
 
 		/* write machine data */
-		for (int i = 0; i < machine_count; i++) {
+		int i;
+		for (i = 0; i < machine_count; i++) {
 			fprintf(vendir, json_out, m[i].index, m[i].name, m[i].location, m[i].pin, m[i].status);
 	
 			if (i < machine_count-1) {
@@ -105,8 +109,9 @@ char *check_char(int size, char prompt[]) {
 			printf("> ERROR: NULL input\n");
 		}
 		else if (buffer[strlen(buffer)-1] != '\n') {
-			// get EOF / NL to consume input 
-			for (int c; (c = getchar()) != EOF && c != '\n';);
+			// get EOF/NL to consume input 
+			int c;
+			for (c = 0; (c = getchar()) != EOF && c != '\n';);
 			printf("> ERROR: Input too long\n");
 		}
 		else if (strlen(buffer) > size) {
@@ -134,7 +139,8 @@ int check_int(int min, int max, char prompt[]) {
 		}
 		else if (buffer[strlen(buffer)-1] != '\n') {
 			// get EOF / NL to consume input 
-			for (int c; (c = getchar()) != EOF && c != '\n';);
+			int c;
+			for (c = 0; (c = getchar()) != EOF && c != '\n';);
 			printf("> ERROR: Input too long\n");
 		}
 		else if (sscanf(buffer, "%d", &input) != 1) {
@@ -149,13 +155,14 @@ int check_int(int min, int max, char prompt[]) {
 	return input;
 }
 
-void display_menu(Vending *machine, int command) {
+void display_menu(Vending* machine, int command) {
 	switch (command) {
 		case 1: // show all machines
 			if (machine_count == 0) {
 				printf("> ERROR: No Machines available\n");
 			} else {
-				for (int i = 0; i < machine_count; i++) {
+				int i;
+				for (i = 0; i < machine_count; i++) {
 					print_machine(machine, i);
 				}
 			}
@@ -199,7 +206,8 @@ void display_menu(Vending *machine, int command) {
 				int x = check_int(1, machine_count, "Machine Index: ");
 				x--;
 	
-				for (int i = 0; i < machine_count; i++) {
+				int i;
+				for (i = 0; i < machine_count; i++) {
 				if (i >= x) {
 						strcpy(machine[i].name, machine[i+1].name);
 						strcpy(machine[i].location, machine[i+1].location);
@@ -236,37 +244,37 @@ void display_menu(Vending *machine, int command) {
 
 int main(int argc, char** argv) {
 	/* initialization */
-	Vending machine[max_machines] = {"", "", 0, 0, 0};;
+	Vending machine[max_machines] = {"", "", 0, 0, 0};
 	get_machines(machine);
 	
-	if (argc > 1) {
-		for (int i=1; i < argc; i++){
-			printf("arg: %s", argv[i]);
-		}
-	} else {
+	web_print_header();
+
+	printf("<h1>Hello World!</h1>");
+	return 1;
+
+	if (argc == 1) {
 		int command;
-
-		//system("clear");
-
-		/*char *a = get_password();
-		printf("password-out: %lu\n", strlen(a));
-		printf("password-out: %s\n", a);
-		exit(1);
-		*/
-
 		do {
-			menu_home();
-			// get password through input parameters
+			//system("clear");
+			print_home();
 			command = check_int(0, 5, "Enter command (0-5): ");
-			system("clear");
 		
+			system("clear");
 			display_menu(machine, command);
+			//display_menu(machine, command, message);
 
 			printf("Please press ENTER to continue ");
 			while ((getchar()) != '\n');
 			system("clear");
-
 		} while (command != 0);
+	} else {
+		/*for (int i=1; i < argc; i++){
+			printf("arg: %s", argv[i]);
+		}*/
+		web_print_header();
+
+		printf("<h1>Hello World!</h1>");
+		return 1;
 	}
 
 	return 0;
