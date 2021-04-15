@@ -4,7 +4,6 @@
 #include <openssl/aes.h> /* file ecnryption */
 #include <openssl/evp.h> /* password hash */
 #include "main.h"
-#include "web.h"
 
 #define max_machines 5
 int machine_count = 0;
@@ -243,13 +242,9 @@ int main(int argc, char** argv) {
 	get_machines(machine);
 	
 	if (argc > 1) {
-		/*for (int i=1; i < argc; i++){
+		for (int i=1; i < argc; i++){
 			printf("arg: %s", argv[i]);
-		}*/
-		web_print_header();
-
-		printf("<h1>Hello World!</h1>");
-
+		}
 	} else {
 		int command;
 
