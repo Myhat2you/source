@@ -71,7 +71,7 @@ input[type=submit] {
 
 <h3>Add Machine</h3>
 <div class="container">
-  <form method="post" action="/cgi-bin/output.o $aname">
+  <form method="post" action="/cgi-bin/output.o?$aname">
     <label for="mName">Name</label>
     <input type="text" name="mName" id="txtName">
 
