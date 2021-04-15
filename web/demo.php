@@ -4,11 +4,10 @@
     $name = $loc = $pin = $status = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = test_input($_POST["txtName"]);
-        //$loc = test_input($_POST["txtLocation"]);
+        $name = $_POST["txtName"];
         //$loc = test_input($_POST["txtLocation"]);
         //$pin = test_input($_POST["numPin"]);
-        //stat = test_input($_POST["numStatus"]);
+        //$stat = test_input($_POST["numStatus"]);
         print "Hello, $name\n";
       }
       
