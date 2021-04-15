@@ -4,6 +4,7 @@
 #include <openssl/aes.h> /* file ecnryption */
 #include <openssl/evp.h> /* password hash */
 #include "main.h"
+#include "web.h"
 
 #define max_machines 5
 int machine_count = 0;
@@ -15,13 +16,6 @@ const char* json_in =
 const char* json_out =
     "\n\t\t{\n\t\t\t\"index\": %d,\n\t\t\t\"name\": \"%s\",\n\t\t\t\"location\": \"%s\",\n\t\t\t\"pin\": %d,\n\t\t\t\"status\": %d\n\t\t}";
 
-void display_menu();
-void print_machine(Vending *m, int i);
-void get_machines(Vending *m);
-void set_machines(Vending *m);
-char *check_char(int size, char prompt[]);
-int check_int(int min, int max, char prompt[]);
-
 //unsigned char *get_password();
 //void test(FILE **ifp);
 /*struct ctr_state
@@ -31,119 +25,7 @@ int check_int(int min, int max, char prompt[]);
     unsigned char ecount[AES_BLOCK_SIZE];
 };*/
 
-int main() {
-	/* initialization */
-	Vending machine[max_machines] = {"", "", 0, 0, 0};;
-	get_machines(machine);
-	int command;
-
-	//system("clear");
-
-	/*char *a = get_password();
-	printf("password-out: %lu\n", strlen(a));
-	printf("password-out: %s\n", a);
-	exit(1);
-	*/
-
-	do {
-		display_menu();
-		// get password through input parameters
-		command = check_int(0, 5, "Enter command (0-5): ");
-		system("clear");
-
-		switch (command) {
-			case 1: /* show all machines */
-				if (machine_count == 0) {
-					printf("> ERROR: No Machines available\n");
-				} else {
-					for (int i = 0; i < machine_count; i++) {
-						print_machine(machine, i);
-					}
-				}
-				break;
-	
-			case 2: /* show machine */
-				if (machine_count == 0) {
-					printf("> ERROR: No Machines available\n");
-				} else {
-					int x = check_int(1, machine_count, "Machine Index: ");
-					print_machine(machine, x-1);
-				}
-				break;
-	
-			case 3: /* add machine */
-				if (machine_count == max_machines) {
-					printf("> ERROR: No machines are available\n");
-				} else {
-					int x = machine_count;
-					machine[x].index = x+1;
-		
-					printf("MACHINE[%d]\n", machine[x].index);
-		
-					strcpy(machine[x].name, check_char(sizeof(machine[x].name), "Enter name: "));
-					strcpy(machine[x].location, check_char(32, "Enter location: "));
-					machine[x].pin = check_int(1, 27, "Enter Pin: ");
-					machine[x].status = check_int(0, 1, "Enter Status: ");
-		
-					printf("\n");
-					print_machine(machine, x);
-
-					machine_count++;
-					set_machines(machine);
-				}
-				break;
-	
-			case 4: /* del machine */
-				if (machine_count == 0) {
-					printf("> ERROR: No Machines available\n");
-				} else {
-					int x = check_int(1, machine_count, "Machine Index: ");
-					x--;
-		
-					for (int i = 0; i < machine_count; i++) {
-						if (i >= x) {
-							strcpy(machine[i].name, machine[i+1].name);
-							strcpy(machine[i].location, machine[i+1].location);
-							machine[i].pin = machine[i+1].pin;
-							machine[i].status = machine[i+1].status;
-						}
-					}
-		
-					machine_count--;
-					set_machines(machine);
-		
-					printf("Machine[%d] deleted\n\n", x+1);
-				}
-				break;
-	
-			case 5: /* set machine status */
-				if (machine_count == 0) {
-					printf("> ERROR: No Machines available\n");
-				} else {
-					int x = check_int(1, machine_count, "Machine Index: ");
-					machine[x-1].status = check_int(0, 1, "Enter Status: ");
-		
-					set_machines(machine);
-		
-					if (machine[x-1].status == 1) {
-						printf("Machine[%d] on\n\n", x);
-					} else {
-						printf("Machine[%d] off\n\n", x);
-					}
-				}
-				break;
-		}
-
-		printf("Please press ENTER to continue ");
-		while ((getchar()) != '\n');
-		system("clear");
-
-	} while (command != 0);
-
-	return 0;
-}
-
-void display_menu() {
+void print_home() {
 	system("clear");
  	printf("=========================================================\n");
  	printf("|            VENDING MACHINE CONTROL CONSOLE            |\n");
@@ -166,13 +48,13 @@ void print_machine(Vending* m, int i) {
 }
 
 void get_machines(Vending* m) {
-	FILE* vendir = fopen(fname, "rwb");
+	FILE* vendir = fopen(fname, "r");
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
+		exit(-1);
 	} else {
 		char buffer[200];
-
 		fseek(vendir, 14, SEEK_SET); 
 
 		while (!feof(vendir)) {
@@ -190,10 +72,11 @@ void get_machines(Vending* m) {
 }
 
 void set_machines(Vending* m) {
-	FILE* vendir = fopen(fname, "rwb");
+	FILE* vendir = fopen(fname, "w");
 
 	if (vendir == NULL) {
 		fprintf(stderr, "> ERROR: Unable to locate file '%s'\n", fname); 
+		exit(-1);
 	} else {
 		/* write json start */
 		fprintf(vendir, "{\n\t\"vendor\": [");
@@ -206,7 +89,6 @@ void set_machines(Vending* m) {
 				fprintf(vendir, "%s", ",");
 			}
 		}
-
 		/* write json end */
 		fprintf(vendir, "\n\t]\n}");
 	}
@@ -226,7 +108,7 @@ char *check_char(int size, char prompt[]) {
 			printf("> ERROR: NULL input\n");
 		}
 		else if (buffer[strlen(buffer)-1] != '\n') {
-			// get EOF / NL to consume input 
+			// get EOF/NL to consume input 
 			for (int c; (c = getchar()) != EOF && c != '\n';);
 			printf("> ERROR: Input too long\n");
 		}
@@ -244,12 +126,12 @@ char *check_char(int size, char prompt[]) {
 
 int check_int(int min, int max, char prompt[]) {
 	int input = -1;
-	char buffer[max+1];
+	char buffer[50];
 
 	do {
 		printf("%s", prompt);
 		fgets(buffer, sizeof(buffer), stdin);
-
+		
 		if (strlen(buffer) == 0) {
 			printf("> ERROR: NULL input\n");
 		}
@@ -268,6 +150,124 @@ int check_int(int min, int max, char prompt[]) {
 	} while (input == -1);
 
 	return input;
+}
+
+void display_menu(Vending* machine, int command) {
+	switch (command) {
+		case 1: // show all machines
+			if (machine_count == 0) {
+				printf("> ERROR: No Machines available\n");
+			} else {
+				for (int i = 0; i < machine_count; i++) {
+					print_machine(machine, i);
+				}
+			}
+		break;
+
+		case 2: // show machine
+			if (machine_count == 0) {
+				printf("> ERROR: No Machines available\n");
+			} else {
+				int x = check_int(1, machine_count, "Machine Index: ");
+				print_machine(machine, x-1);
+			}
+		break;
+	
+		case 3: // add machine
+			if (machine_count == max_machines) {
+				printf("> ERROR: No machines are available\n");
+			} else {
+				int x = machine_count;
+				machine[x].index = x+1;
+	
+				printf("MACHINE[%d]\n", machine[x].index);
+	
+				strcpy(machine[x].name, check_char(sizeof(machine[x].name), "Enter name: "));
+				strcpy(machine[x].location, check_char(32, "Enter location: "));
+				machine[x].pin = check_int(0, 27, "Enter Pin: ");
+				machine[x].status = check_int(0, 1, "Enter Status: ");
+	
+				printf("\n");
+				print_machine(machine, x);
+
+				machine_count++;
+				set_machines(machine);
+			}
+		break;
+	
+		case 4: // del machine
+			if (machine_count == 0) {
+				printf("> ERROR: No Machines available\n");
+			} else {
+				int x = check_int(1, machine_count, "Machine Index: ");
+				x--;
+	
+				for (int i = 0; i < machine_count; i++) {
+				if (i >= x) {
+						strcpy(machine[i].name, machine[i+1].name);
+						strcpy(machine[i].location, machine[i+1].location);
+						machine[i].pin = machine[i+1].pin;
+						machine[i].status = machine[i+1].status;
+					}
+				}
+	
+				machine_count--;
+				set_machines(machine);
+	
+				printf("Machine[%d] deleted\n\n", x+1);
+			}
+		break;
+
+		case 5: // set machine status
+			if (machine_count == 0) {
+				printf("> ERROR: No Machines available\n");
+			} else {
+				int x = check_int(1, machine_count, "Machine Index: ");
+				machine[x-1].status = check_int(0, 1, "Enter Status: ");
+	
+				set_machines(machine);
+	
+				if (machine[x-1].status == 1) {
+					printf("Machine[%d] on\n\n", x);
+				} else {
+					printf("Machine[%d] off\n\n", x);
+				}
+			}
+		break;
+	}
+}
+
+int main(int argc, char** argv) {
+	/* initialization */
+	Vending machine[max_machines] = {"", "", 0, 0, 0};;
+	get_machines(machine);
+	
+	if (argc == 1) {
+		int command;
+		do {
+			//system("clear");
+			print_home();
+			command = check_int(0, 5, "Enter command (0-5): ");
+		
+			system("clear");
+			display_menu(machine, command);
+			//display_menu(machine, command, message);
+
+			printf("Please press ENTER to continue ");
+			while ((getchar()) != '\n');
+			system("clear");
+		} while (command != 0);
+	} else {
+		/*for (int i=1; i < argc; i++){
+			printf("arg: %s", argv[i]);
+		}*/
+		web_print_header();
+
+		printf("<h1>Hello World!</h1>");
+		return 1;
+	}
+
+	return 0;
 }
 
 /*

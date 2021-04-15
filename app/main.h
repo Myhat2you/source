@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 typedef struct vending {
 	char name[16];
 	char location[32];
@@ -10,3 +13,5 @@ typedef struct gpio_pin {
 	int value;
 	char opt;
 } Pin;
+
+#endif

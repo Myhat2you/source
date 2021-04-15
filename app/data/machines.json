@@ -5,7 +5,7 @@
 			"name": "vendor_01",
 			"location": "hallway",
 			"pin": 1,
-			"status": 1
+			"status": 0
 		},
 		{
 			"index": 2,
