@@ -269,7 +269,7 @@ int main(int argc, char** argv) {
 		web_print_header();
 
 		//printf("<h1>Hello World!</h1>");
-		printf("<h2>arg: %s</h2>", argv[2]);
+		printf("<h2>arg: %s</h2>", argv[1]);
 		return 1;
 	}
 
